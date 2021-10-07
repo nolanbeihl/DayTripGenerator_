@@ -3,7 +3,7 @@ import random
 list_locations = [ 'Middle of nowhere', 'downtown', 'mountains', 'The Movies']
 restaurants = [ 'rabbit hole', 'in and out', 'food truck']
 vehicles = ['tigger', 'wilbur', 'probie']
-entertainments = ['movie', 'stars', 'people watching']
+entertainments = ['go to the movies', 'look at the stars', 'people watch']
 def start_over():
     get_location()
     pick_food()
@@ -12,70 +12,63 @@ def start_over():
 
 def location_generator():
     random_location = random.choice(list_locations)
-    location_pick = random_location
-    return location_pick
+    return random_location
 
 def get_location():
     user_pick = input('Would you like to go to ' + location_generator() + '?: ')
     if user_pick == 'no':
         get_location()
     else:
-        location_pref = location_generator  
-        return location_pref 
+        return location_generator()
+
 get_location()
 
 def restaurant_pick():
     random_restaurant = random.choice(restaurants)
-    restaurant_picked = random_restaurant
-    return restaurant_picked
+    return random_restaurant
 
 def pick_food():
     food_choice = input('Would you like to eat ' + restaurant_pick() + '?: ')
     if food_choice == 'no':
         pick_food()
     else:
-        food_pref = restaurant_pick
-        return food_pref
+        return restaurant_pick()
 pick_food()
 
 def vehicle_choice():
     random_vehicle = random.choice(vehicles)
-    vehicle_pick = random_vehicle
-    return vehicle_pick
+    return random_vehicle
 
 def pick_vehicle():
-    which_vehicle = input('Would you like to take' + vehicle_choice() + '?: ')
+    which_vehicle = input('Would you like to take ' + vehicle_choice() + '?: ')
     if which_vehicle == 'no':
         pick_vehicle()
     else:
-        vehicle_pref = vehicle_choice
-        return vehicle_pref
+        return vehicle_choice()
 pick_vehicle()        
 
 def activity():
     random_activity = random.choice(entertainments)
-    activity_picked = random_activity
-    return activity_picked
+    return random_activity
 
 def pick_activity():
-    what_to_do = input(' Do you want to' + activity() + '?: ' )
+    what_to_do = input('Do you want to ' + activity() + '?: ' )
     if what_to_do == 'no':
         pick_activity()
     else:
-        activity_pref = activity()
-        return activity_pref
+        return activity()
 pick_activity()
-
-def confirmed():
-    print(' So we will take ' + vehicle_pref + ' and go ' + location_pref + ' but first we will ' + food_pref + ' before we ' + activity_pref)
 
 def confirmation():
     decision = input('Are you sure on what you have decided?: ')
     if decision == 'no':
-        print('well then I do not know what to tell you')
+        print('ok, lets try again')
         start_over()
     else:
         confirmed()
+
+def confirmed():
+    print('So we will take ' + pick_vehicle() + ' and go ' + get_location() + ' but first we will eat at ' + pick_food() + ' before we ' + pick_activity())
 
 confirmed()
 
