@@ -1,11 +1,11 @@
 import random
 
-list_locations = [ 'Middle of nowhere', 'downtown', 'mountains', 'The Movies']
-restaurants = [ 'rabbit hole', 'in and out', 'food truck']
+list_locations = [ 'to the middle of nowhere', 'downtown', 'to the mountains', 'to the Movies']
+restaurants = [ 'the rabbit hole', 'in and out', 'a food truck']
 vehicles = ['tigger', 'wilbur', 'probie']
 entertainments = ['go to the movies', 'look at the stars', 'people watch']
 def start_over():
-    get_location()
+    final_choice = pick_location()
     pick_food()
     pick_vehicle()
     pick_activity()
@@ -14,63 +14,77 @@ def location_generator():
     random_location = random.choice(list_locations)
     return random_location
 
-def get_location():
-    user_pick = input('Would you like to go to ' + location_generator() + '?: ')
-    if user_pick == 'no':
-        get_location()
-    else:
-        return location_generator()
+def pick_location():
+    not_satisfied = True
+    while (not_satisfied):
+        chosen_location = location_generator()
+        user_pick = input('Would you like to go to ' + chosen_location + '?: ')
+        if user_pick == 'yes':
+            not_satisfied = False
+            return chosen_location
 
-get_location()
 
 def restaurant_pick():
     random_restaurant = random.choice(restaurants)
     return random_restaurant
 
 def pick_food():
-    food_choice = input('Would you like to eat ' + restaurant_pick() + '?: ')
-    if food_choice == 'no':
-        pick_food()
-    else:
-        return restaurant_pick()
-pick_food()
+    dislikes = True
+    while (dislikes):
+        restaurant_option = restaurant_pick()
+        user_pick_food = input('Would you like to eat at ' + restaurant_option + '?: ')
+        if user_pick_food == 'yes':
+            dislikes = False
+            return restaurant_option
 
 def vehicle_choice():
     random_vehicle = random.choice(vehicles)
     return random_vehicle
 
 def pick_vehicle():
-    which_vehicle = input('Would you like to take ' + vehicle_choice() + '?: ')
-    if which_vehicle == 'no':
-        pick_vehicle()
-    else:
-        return vehicle_choice()
-pick_vehicle()        
+    ride_pref = True
+    while (ride_pref):
+        ride_option = vehicle_choice()
+        user_ride_choice = input('Would you like to take ' + ride_option + '? ')
+        if user_ride_choice == 'yes':
+            ride_pref = False
+            return ride_option   
 
 def activity():
     random_activity = random.choice(entertainments)
     return random_activity
 
 def pick_activity():
-    what_to_do = input('Do you want to ' + activity() + '?: ' )
-    if what_to_do == 'no':
-        pick_activity()
-    else:
-        return activity()
-pick_activity()
+    activity_pref = True
+    while (activity_pref):
+        activity_option = activity()
+        user_activity_choice = input('Would you like to ' + activity_option + ' afterwards? ')
+        if user_activity_choice == 'yes':
+            activity_pref = False
+            return activity_option
 
+
+# * Main Function
 def confirmation():
-    decision = input('Are you sure on what you have decided?: ')
-    if decision == 'no':
-        print('ok, lets try again')
-        start_over()
-    else:
-        confirmed()
+    do_over = True
+    while(do_over):
+        final_loc = pick_location()
+        final_food = pick_food()
+        final_veh = pick_vehicle()
+        final_act = pick_activity()
+        decision = input('Are you sure on what you have decided?: ')
+        if decision == 'no':
+            print('ok, lets try again')
+        
+        else:
+            confirmed(final_loc, final_veh, final_food, final_act)
+            do_over = False
 
-def confirmed():
-    print('So we will take ' + pick_vehicle() + ' and go ' + get_location() + ' but first we will eat at ' + pick_food() + ' before we ' + pick_activity())
+def confirmed(fn_loc, fn_veh, fn_food, fn_act):
+    print('So we will take ' + fn_veh + ' and go ' + fn_loc + ' but first we will eat at ' + fn_food + ' before we ' + fn_act)
 
-confirmed()
+confirmation()
+
 
 
 
